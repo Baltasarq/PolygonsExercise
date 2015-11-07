@@ -14,12 +14,12 @@ namespace PolygonsExercise.Core {
 			this.points = new List<Point>();
 		}
 
-		virtual public void Add(Point p)
+		public void Add(Point p)
 		{
 			this.points.Add( p );
 		}
 
-		virtual public void AddRange(Point[] p)
+		public void AddRange(Point[] p)
 		{
 			this.points.AddRange( p );
 		}

@@ -9,6 +9,9 @@ namespace PolygonsExercise.View {
 			this.Build();
 		}
 
+		/// <summary>
+		/// Invoked when the Gtk.DrawingArea needs repainting.
+		/// </summary>
 		private void OnExposed() {
 			var p1 = new Polygon( new Point[] {
 				new Point( 10, 10 ),
@@ -29,6 +32,11 @@ namespace PolygonsExercise.View {
 				new Point( 300, 100 )
 			);
 
+			var c1 = new Square(
+				new Point( 300, 210 ),
+				new Point( 400, 300 )
+			);
+
 			using (var canvas = Gdk.CairoHelper.Create( this.drawingArea.GdkWindow ))
 			{
 				canvas.LineWidth = 4;
@@ -38,6 +46,7 @@ namespace PolygonsExercise.View {
 				this.Paint( canvas, p1 );
 				this.Paint( canvas, r1 );
 				this.Paint( canvas, t1 );
+				this.Paint( canvas, c1 );
 
 				canvas.GetTarget().Dispose();
 			}
@@ -45,7 +54,12 @@ namespace PolygonsExercise.View {
 			return;
 		}
 
-		private void Paint(Cairo.Context canvas, Polygon p)
+		/// <summary>
+		/// Paint the specified Figure (or Polygon) object in the given Cairo.Context canvas.
+		/// </summary>
+		/// <param name="canvas">The canvas to paint in, as a Cairo.Context.</param>
+		/// <param name="p">A Figure or Polygon object, as long as it has the Point[] Points property</param>
+		private void Paint(Cairo.Context canvas, dynamic p)
 		{
 			Point[] points = p.Points;
 
@@ -58,6 +72,9 @@ namespace PolygonsExercise.View {
 			canvas.Stroke();
 		}
 
+		/// <summary>
+		/// Build the UI
+		/// </summary>
 		private void Build()
 		{
 			var swScroll = new Gtk.ScrolledWindow();
